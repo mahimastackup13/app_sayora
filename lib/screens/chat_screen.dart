@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sayoraaa/screens/home_screen.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -7,13 +8,12 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color.from(alpha: 1, red: 0.545, green: 0.102, blue: 0.929),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Color.fromRGBO(34, 3, 136, 1),
-              Color.from(alpha: 0.695, red: 0.384, green: 0.302, blue: 0.659),
+              Color.fromRGBO(98, 77, 168, 0.695),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -29,18 +29,25 @@ class ChatScreen extends StatelessWidget {
                 right: 16,
                 bottom: 10,
               ),
-
               child: Row(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    padding: const EdgeInsets.all(6),
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Color.fromRGBO(108, 65, 250, 1),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      );
+                    },
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      padding: const EdgeInsets.all(6),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: Color.fromRGBO(108, 65, 250, 1),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
@@ -97,6 +104,7 @@ class ChatScreen extends StatelessWidget {
               ),
             ),
 
+            // Chat area
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
@@ -116,14 +124,14 @@ class ChatScreen extends StatelessWidget {
                             _messageBubble(
                               isMe: false,
                               message:
-                                  "Sed Do Eiusmod Tempor Incididunt Ut Labore Et Magna Aliqua. Ut Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliqui.",
+                                  "Sed Do Eiusmod Tempor Incididunt Ut Labore Et Magna Aliqua...",
                               time: "10 AM",
                               avatar: '👩‍🦰',
                             ),
                             _messageBubble(
                               isMe: true,
                               message:
-                                  "Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit, Sed Do Eiusmod Tempor Incididunt Ut Labore Et Dolore.",
+                                  "Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing...",
                               time: "10 AM",
                               avatar: '🧑🏾‍🦱',
                             ),
@@ -135,22 +143,19 @@ class ChatScreen extends StatelessWidget {
                             ),
                             _messageBubble(
                               isMe: false,
-                              message:
-                                  "Sed Do Eiusmod Tempor Incididunt Ut Labore Et Magna Aliqua. Ut Enim Ad Minim Veniam..",
+                              message: "Sed Do Eiusmod Tempor Incididunt...",
                               time: "10 AM",
                               avatar: '👩‍🦰',
                             ),
                             _messageBubble(
                               isMe: true,
-                              message:
-                                  "Lorem Ipsum Dolor Sit Amet, Consectetur Adipiscing",
+                              message: "Lorem Ipsum Dolor Sit Amet...",
                               time: "10 AM",
                               avatar: '🧑🏾‍🦱',
                             ),
                             _messageBubble(
                               isMe: false,
-                              message:
-                                  "Sed Do Eiusmod Tempor Incididunt Ut Labore Et",
+                              message: "Sed Do Eiusmod Tempor Incididunt...",
                               time: "10 AM",
                               avatar: '👩‍🦰',
                             ),
@@ -165,11 +170,9 @@ class ChatScreen extends StatelessWidget {
                       ),
                     ),
 
+                    // Message Input
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -191,9 +194,7 @@ class ChatScreen extends StatelessWidget {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            contentPadding: const EdgeInsets.symmetric(
-                              vertical: 14,
-                            ),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 14),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(30),
                               borderSide: BorderSide.none,
@@ -254,9 +255,8 @@ class ChatScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Row(
-        mainAxisAlignment: isMe
-            ? MainAxisAlignment.end
-            : MainAxisAlignment.start,
+        mainAxisAlignment:
+            isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isMe)

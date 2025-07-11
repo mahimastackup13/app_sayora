@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sayoraaa/screens/chat_screen.dart';
+import 'package:sayoraaa/screens/profile_screen.dart';
+import 'package:sayoraaa/screens/home_screen.dart';
 
 class LevelScreen extends StatefulWidget {
   const LevelScreen({super.key});
@@ -13,9 +16,33 @@ class _LevelScreenState extends State<LevelScreen> {
   int selectedIndex = 0;
 
   void _onNavTap(int index) {
+    if (index == selectedIndex) return;
+
     setState(() {
       selectedIndex = index;
     });
+
+    
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const LevelScreen()),
+        );
+        break;
+      case 1:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        break;
+      case 2:
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+        );
+        break;
+    }
   }
 
   Widget _buildNavItem(String assetPath, int index) {
@@ -61,12 +88,7 @@ class _LevelScreenState extends State<LevelScreen> {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.only(
-                top: 50,
-                bottom: 20,
-                left: 20,
-                right: 20,
-              ),
+              padding: const EdgeInsets.only(top: 50, bottom: 20, left: 20, right: 20),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Color(0xFF4B22B4), Color(0xFF8E65F3)],
@@ -83,10 +105,7 @@ class _LevelScreenState extends State<LevelScreen> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 6,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
@@ -127,117 +146,223 @@ class _LevelScreenState extends State<LevelScreen> {
                 ],
               ),
             ),
-
-            // Body
             Expanded(
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Learning Levels",
-                            style: GoogleFonts.lato(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87,
-                            ),
+  child: Container(
+    width: double.infinity,
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(30),
+        topRight: Radius.circular(30),
+      ),
+    ),
+    child: Column(
+      children: [
+      
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Learning Levels",
+                      style: GoogleFonts.lato(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 6,
+                            offset: Offset(0, 3),
                           ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 6,
-                                  offset: Offset(0, 3),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                const Icon(
-                                  Icons.star_border,
-                                  size: 18,
-                                  color: Colors.amber,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  "0 / 100 Completed",
-                                  style: GoogleFonts.lato(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.star_border,
+                              size: 18, color: Colors.amber),
+                          const SizedBox(width: 6),
+                          Text(
+                            "0 / 100 Completed",
+                            style: GoogleFonts.lato(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
-
-                      const SizedBox(height: 20),
-
-                      _levelOneCard(),
-
-                      const SizedBox(height: 20),
-                      _lockedLevelCard("Level-2"),
-                      const SizedBox(height: 12),
-                      _lockedLevelCard("Level-3"),
-                      const SizedBox(height: 12),
-                      _lockedLevelCard("Level-4"),
-                      const SizedBox(height: 12),
-                      _lockedLevelCard("Level-5"),
-                      const SizedBox(height: 12),
-                      _lockedLevelCard("Level-6"),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ),
+                const SizedBox(height: 20),
+                _levelOneCard(),
+                const SizedBox(height: 20),
+                _lockedLevelCard("Level-2"),
+                const SizedBox(height: 12),
+                _lockedLevelCard("Level-3"),
+                const SizedBox(height: 12),
+                _lockedLevelCard("Level-4"),
+                const SizedBox(height: 12),
+                _lockedLevelCard("Level-5"),
+                const SizedBox(height: 12),
+                _lockedLevelCard("Level-6"),
+              ],
             ),
+          ),
+        ),
+
+        
+        Padding(
+          padding: const EdgeInsets.only(
+            bottom: 20,
+            left: 60,
+            right: 60,
+            top: 10,
+          ),
+          child: Container(
+            height: 70,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12.withOpacity(0.08),
+                  blurRadius: 8,
+                  spreadRadius: 0.5,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _buildNavItem('assets/icons/star.svg', 0),
+                _buildNavItem('assets/icons/home.svg', 1),
+                _buildNavItem('assets/icons/person.svg', 2),
+              ],
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+)
+
+
+            // Expanded(
+            //   child: Container(
+            //     width: double.infinity,
+            //     padding: const EdgeInsets.all(20),
+            //     decoration: const BoxDecoration(
+            //       color: Colors.blue,
+            //       borderRadius: BorderRadius.only(
+            //         topLeft: Radius.circular(30),
+            //         topRight: Radius.circular(30),
+            //       ),
+            //     ),
+            //     child: SingleChildScrollView(
+            //       child: Column(
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 "Learning Levels",
+            //                 style: GoogleFonts.lato(
+            //                   fontSize: 22,
+            //                   fontWeight: FontWeight.bold,
+            //                   color: Colors.black87,
+            //                 ),
+            //               ),
+            //               Container(
+            //                 padding: const EdgeInsets.all(10),
+            //                 decoration: BoxDecoration(
+            //                   color: Colors.white,
+            //                   borderRadius: BorderRadius.circular(20),
+            //                   boxShadow: const [
+            //                     BoxShadow(
+            //                       color: Colors.black12,
+            //                       blurRadius: 6,
+            //                       offset: Offset(0, 3),
+            //                     ),
+            //                   ],
+            //                 ),
+            //                 child: Row(
+            //                   children: [
+            //                     const Icon(Icons.star_border, size: 18, color: Colors.amber),
+            //                     const SizedBox(width: 6),
+            //                     Text(
+            //                       "0 / 100 Completed",
+            //                       style: GoogleFonts.lato(
+            //                         fontSize: 13,
+            //                         fontWeight: FontWeight.w500,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //           const SizedBox(height: 20),
+            //           _levelOneCard(),
+            //           const SizedBox(height: 20),
+            //           _lockedLevelCard("Level-2"),
+            //           const SizedBox(height: 12),
+            //           _lockedLevelCard("Level-3"),
+            //           const SizedBox(height: 12),
+            //           _lockedLevelCard("Level-4"),
+            //           const SizedBox(height: 12),
+            //           _lockedLevelCard("Level-5"),
+            //           const SizedBox(height: 12),
+            //           _lockedLevelCard("Level-6"),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
 
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20, left: 60, right: 60),
-        child: Container(
-          height: 70,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(50),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12.withOpacity(0.08),
-                blurRadius: 8,
-                spreadRadius: 0.5,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildNavItem('assets/icons/star.svg', 0),
-              _buildNavItem('assets/icons/home.svg', 1),
-              _buildNavItem('assets/icons/person.svg', 2),
-            ],
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Padding(
+      //   padding: const EdgeInsets.only(bottom: 20, left: 60, right: 60),
+      //   child: Container(
+      //     height: 70,
+      //     decoration: BoxDecoration(
+      //       color: Colors.white,
+      //       borderRadius: BorderRadius.circular(50),
+      //       boxShadow: [
+      //         BoxShadow(
+      //           color: Colors.black12.withOpacity(0.08),
+      //           blurRadius: 8,
+      //           spreadRadius: 0.5,
+      //           offset: const Offset(0, 3),
+      //         ),
+      //       ],
+      //     ),
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //       children: [
+      //         _buildNavItem('assets/icons/star.svg', 0),
+      //         _buildNavItem('assets/icons/home.svg', 1),
+      //         _buildNavItem('assets/icons/person.svg', 2),
+      //       ],
+      //     ),
+      //   ),
+      // ),
     );
   }
 
@@ -278,11 +403,7 @@ class _LevelScreenState extends State<LevelScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.asset(
-                      'assets/icons/star.svg',
-                      width: 20,
-                      height: 20,
-                    ),
+                    SvgPicture.asset('assets/icons/star.svg', width: 20, height: 20),
                     const SizedBox(height: 8),
                     Text(
                       "Level-1",
@@ -328,7 +449,6 @@ class _LevelScreenState extends State<LevelScreen> {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-
         LayoutBuilder(
           builder: (context, constraints) {
             return Container(
@@ -336,17 +456,13 @@ class _LevelScreenState extends State<LevelScreen> {
               width: constraints.maxWidth * progress,
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [
-                    Color.fromRGBO(54, 24, 126, 0.821),
-                    Color(0xFFB49BF6),
-                  ],
+                  colors: [Color.fromRGBO(54, 24, 126, 0.821), Color(0xFFB49BF6)],
                 ),
                 borderRadius: BorderRadius.circular(20),
               ),
             );
           },
         ),
-
         Positioned.fill(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
